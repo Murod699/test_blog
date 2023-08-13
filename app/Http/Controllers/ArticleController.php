@@ -26,7 +26,7 @@ class ArticleController extends Controller
 
     public function more($slug){
 
-        $article = Article::findBySlug($slug);
+        $article = $this->getArticleBySlug($slug);
 
         return view('Article.more', compact('article'));
     }
@@ -35,7 +35,7 @@ class ArticleController extends Controller
 
         $slug = $request->postId;
 
-        $post = Article::findBySlug($slug);
+        $post = $this->getArticleBySlug($slug);
 
         $view = $post->increment('views');
 
@@ -47,6 +47,11 @@ class ArticleController extends Controller
 
         ]);
 
+    }
+
+    private function getArticleBySlug($slug){
+
+        return Article::findBySlug($slug);
     }
 
 
